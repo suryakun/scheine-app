@@ -5,6 +5,7 @@ import { apiKeyMiddleware } from './middlewares/apiKeyMiddleware';
 import { userController } from './controllers/userController';
 import AppDataSource from './db/datasource';
 import morgan from 'morgan';
+import { doctorController } from './controllers/doctorController';
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(apiKeyMiddleware);
 
 // Routes
 app.use('/api/users', userController);
+app.use('/api/doctors', doctorController);
 
 AppDataSource.initialize()
   .then(() => {

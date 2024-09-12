@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Schein } from './scheine';
+import { Scheine } from './scheine';
 import { BaseEntity } from './base';
 
 @Entity()
@@ -22,6 +22,6 @@ export class User extends BaseEntity {
   @Column({ type: 'varchar', length: 255 })
   address: string;
 
-  @OneToMany(() => Schein, schein => schein.patient)
-  scheine: Schein[];
+  @OneToMany(() => Scheine, scheine => scheine.patient)
+  scheine: Scheine[];
 }

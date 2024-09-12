@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, Index } from 'typeorm';
 import { ScheineType } from './scheineType';
-import { ScheinAttribute } from './scheineAttribute';
+import { ScheineAttribute } from './scheineAttribute';
 import { BaseEntity } from './base';
 
 @Entity()
@@ -24,6 +24,6 @@ export class AttributeDefinition extends BaseEntity {
   @Column({ nullable: true, type: 'text' })
   options: string; // For dropdown or multi-select fields, store options as JSON string
 
-  @OneToOne(() => ScheinAttribute, attr => attr.attributeDefinition)
-  values: ScheinAttribute;
+  @OneToOne(() => ScheineAttribute, attr => attr.attributeDefinition)
+  values: ScheineAttribute;
 }

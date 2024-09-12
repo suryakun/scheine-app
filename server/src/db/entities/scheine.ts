@@ -2,12 +2,12 @@ import { Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany, Index, Column } f
 import { User } from './user';
 import { Doctor } from './doctor';
 import { Template } from './template';
-import { ScheinAttribute } from './scheineAttribute';
+import { ScheineAttribute } from './scheineAttribute';
 import { BaseEntity } from './base';
 
 @Entity()
 @Index(['patient', 'doctor', 'template'])
-export class Schein extends BaseEntity {
+export class Scheine extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -20,8 +20,8 @@ export class Schein extends BaseEntity {
   @ManyToOne(() => Template, template => template.scheine)
   template: Template;
 
-  @OneToMany(() => ScheinAttribute, attribute => attribute.schein, { cascade: true })
-  attributes: ScheinAttribute[];
+  @OneToMany(() => ScheineAttribute, attribute => attribute.scheine, { cascade: true })
+  attributes: ScheineAttribute[];
 
   @Column({ nullable: true, type: 'text' })
   pdfUrl: string;

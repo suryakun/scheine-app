@@ -4,7 +4,7 @@ services:
   postgres:
     image: postgres:15
     environment:
-      POSTGRES_DB: hospital
+      POSTGRES_DB: klinik
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: testing1234
     ports:

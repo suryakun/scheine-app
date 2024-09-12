@@ -1,15 +1,15 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from 'typeorm';
-import { Schein } from './scheine';
+import { Scheine } from './scheine';
 import { AttributeDefinition } from './attributeDefinition';
 import { BaseEntity } from './base';
 
 @Entity()
-export class ScheinAttribute extends BaseEntity {
+export class ScheineAttribute extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Schein, schein => schein.attributes)
-  schein: Schein;
+  @ManyToOne(() => Scheine, scheine => scheine.attributes)
+  scheine: Scheine;
 
   @OneToOne(() => AttributeDefinition, attrDef => attrDef.values)
   attributeDefinition: AttributeDefinition;
