@@ -1,14 +1,14 @@
 import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 
 // Load API key from environment variable
-const API_KEY = process.env.REACT_APP_API_KEY || '';
+const API_KEY = import.meta.env.VITE_API_KEY || '';
 
 if (!API_KEY) {
   console.warn('API key is not set');
 }
 
 const api: AxiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 api.interceptors.request.use(

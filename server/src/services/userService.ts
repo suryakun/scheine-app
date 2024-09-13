@@ -28,7 +28,7 @@ export const userService = {
     pageSize: number = 10,
   ): Promise<{ users: User[]; total: number }> {
     const [users, total] = await userRepository.findAndCount({
-      where: { name: Like(`%${name}%`) },
+      where: { first_name: Like(`%${name}%`) },
       skip: (page - 1) * pageSize,
       take: pageSize,
     });

@@ -1,10 +1,9 @@
-import { UserPayload } from '@/types/user-payload';
 import api from '../lib/api';
+import { UserInput } from '@/types/user';
 
 export const fetchUser = (userId: string) => api.get(`/users/${userId}`);
 
-export const createUser = (userData: UserPayload) => api.post('/users', userData);
+export const createUser = (userData: UserInput) => api.post('/users', userData);
 
-// Or using the custom methods:
-export const updateUser = (userId: string, userData: UserPayload) =>
+export const updateUser = (userId: string, userData: UserInput) =>
   api.put(`/users/${userId}`, userData);
