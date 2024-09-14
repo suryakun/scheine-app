@@ -1,19 +1,15 @@
 export type Doctor = {
   id: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   specialization: string;
   email: string;
-  phoneNumber: string;
   createdAt: Date;
 };
 
 export type DoctorInput = {
-  firstName: string;
-  lastName: string;
+  name: string;
   specialization: string;
   email: string;
-  phoneNumber: string;
 };
 
 export type DoctorSearchParams = {
@@ -21,4 +17,11 @@ export type DoctorSearchParams = {
   specialization?: string;
   page?: number;
   pageSize?: number;
+};
+
+export type Doctors = {
+  total: number;
+  page: number;
+  pageSize: number;
+  doctors: Doctor[];
 };
