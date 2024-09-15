@@ -8,10 +8,10 @@ import AppDataSource from './db/datasource';
 import morgan from 'morgan';
 import { doctorController } from './controllers/doctorController';
 import { fileURLToPath } from 'url';
+import { scheineTypeController } from './controllers/scheineTypeController';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const app = express();
@@ -26,6 +26,7 @@ app.use(apiKeyMiddleware);
 // Routes
 app.use('/api/users', userController);
 app.use('/api/doctors', doctorController);
+app.use('/api/scheine-types', scheineTypeController);
 
 AppDataSource.initialize()
   .then(() => {

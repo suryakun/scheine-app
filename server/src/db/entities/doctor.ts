@@ -8,7 +8,10 @@ export class Doctor extends BaseEntity {
   id: number;
 
   @Column({ type: 'varchar', length: 255 })
-  name: string;
+  first_name!: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  last_name: string;
 
   @Column({ unique: true, type: 'varchar', length: 255 })
   email: string;

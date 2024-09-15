@@ -1,5 +1,4 @@
 import { Template } from '../db/entities/template';
-import { Scheine } from '../db/entities/scheine';
 import { templateRepository, scheineRepository } from '../db/repositories/appRepository';
 
 export const templateService = {

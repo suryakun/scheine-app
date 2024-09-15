@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Template } from './template';
 import { AttributeDefinition } from './attributeDefinition';
 import { BaseEntity } from './base';
+import { Scheine } from './scheine';
 
 @Entity()
 export class ScheineType extends BaseEntity {
@@ -19,4 +20,7 @@ export class ScheineType extends BaseEntity {
 
   @OneToMany(() => AttributeDefinition, attrDef => attrDef.scheineType)
   attributeDefinitions: AttributeDefinition[];
+
+  @OneToMany(() => Scheine, scheine => scheine.type)
+  type: Scheine[];
 }

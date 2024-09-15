@@ -11,9 +11,12 @@ export class ScheineAttribute extends BaseEntity {
   @ManyToOne(() => Scheine, scheine => scheine.attributes)
   scheine: Scheine;
 
-  @OneToOne(() => AttributeDefinition, attrDef => attrDef.values)
-  attributeDefinition: AttributeDefinition;
+  @OneToOne(() => AttributeDefinition, attrDef => attrDef.scheineAttribute)
+  definition: AttributeDefinition;
 
   @Column('text')
   value: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  description: string;
 }

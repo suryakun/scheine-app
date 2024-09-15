@@ -53,7 +53,7 @@ export const UserTable = () => {
           {
             users.map(user => {
               return (
-                <TableRow>
+                <TableRow key={user.id}>
                   <TableCell>{user.id}</TableCell>
                   <TableCell>{user.first_name}</TableCell>
                   <TableCell>{user.last_name}</TableCell>

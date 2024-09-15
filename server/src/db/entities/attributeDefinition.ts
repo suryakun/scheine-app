@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, Index } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToOne,
+  Index,
+  JoinColumn,
+} from 'typeorm';
 import { ScheineType } from './scheineType';
 import { ScheineAttribute } from './scheineAttribute';
 import { BaseEntity } from './base';
@@ -12,6 +20,10 @@ export class AttributeDefinition extends BaseEntity {
   @ManyToOne(() => ScheineType, scheineType => scheineType.attributeDefinitions)
   scheineType: ScheineType;
 
+  @OneToOne(() => ScheineAttribute)
+  @JoinColumn()
+  scheineAttribute: ScheineAttribute;
+
   @Column({ type: 'varchar' })
   key: string;
 
@@ -23,7 +35,4 @@ export class AttributeDefinition extends BaseEntity {
 
   @Column({ nullable: true, type: 'text' })
   options: string; // For dropdown or multi-select fields, store options as JSON string
-
-  @OneToOne(() => ScheineAttribute, attr => attr.attributeDefinition)
-  values: ScheineAttribute;
 }

@@ -41,7 +41,8 @@ export const DoctorTable = () => {
         <TableHeader>
           <TableRow>
             <TableHead>ID</TableHead>
-            <TableHead>Name</TableHead>
+            <TableHead>First Name</TableHead>
+            <TableHead>Last Name</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Specialization</TableHead>
             <TableHead className="text-right">Created at</TableHead>
@@ -51,9 +52,10 @@ export const DoctorTable = () => {
           {
             doctors.map(doctor => {
               return (
-                <TableRow>
+                <TableRow key={doctor.id}>
                   <TableCell>{doctor.id}</TableCell>
-                  <TableCell>{doctor.name}</TableCell>
+                  <TableCell>{doctor.first_name}</TableCell>
+                  <TableCell>{doctor.last_name}</TableCell>
                   <TableCell>{doctor.email}</TableCell>
                   <TableCell>{doctor.specialization}</TableCell>
                   <TableCell className="text-right">{format(doctor.createdAt, "PPP")}</TableCell>

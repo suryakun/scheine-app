@@ -1,6 +1,6 @@
 import api from '../lib/api';
 
-import { Doctor, DoctorInput, DoctorSearchParams } from '@/types/doctor';
+import { Doctor, DoctorInput, DoctorSearchParams, Doctors } from '@/types/doctor';
 
 export const doctorService = {
   async fetchDoctor(id: string): Promise<Doctor> {
@@ -9,7 +9,9 @@ export const doctorService = {
   },
 
   async fetchDoctors(
-    params: DoctorSearchParams = {},
+    params: DoctorSearchParams = {
+      name: '',
+    },
   ): Promise<{ doctors: Doctor[]; total: number }> {
     const response = await api.get<{ doctors: Doctor[]; total: number }>('/doctors', { params });
     return response.data;
@@ -25,8 +27,8 @@ export const doctorService = {
     return response.data;
   },
 
-  async searchDoctors(params: DoctorSearchParams): Promise<{ doctors: Doctor[]; total: number }> {
-    const response = await api.get<{ doctors: Doctor[]; total: number }>('/doctors/search', {
+  async searchDoctors(params: DoctorSearchParams): Promise<Doctors> {
+    const response = await api.get<Doctors>('/doctors/search', {
       params,
     });
     return response.data;

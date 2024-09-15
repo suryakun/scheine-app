@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { UserPage } from './components/user-page';
 import { DoctorPage } from './components/doctor-page';
 import { cn } from './lib/utils';
+import { EditorPage } from './components/editor-page';
 
 const queryClient = new QueryClient();
 
@@ -61,12 +62,26 @@ function App() {
                   Doctor
                 </NavLink>
               </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavLink
+                  to="/scheine"
+                  className={({ isActive }) =>
+                    cn(
+                      navigationMenuTriggerStyle(),
+                      isActive ? "bg-accent text-accent-foreground" : ""
+                    )
+                  }
+                >
+                  Scheine
+                </NavLink>
+              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
           <Routes>
             <Route path="/" element={<div />} />
             <Route path="/users" element={<UserPage />} />
             <Route path="/doctors" element={<DoctorPage />} />
+            <Route path="/scheine" element={<EditorPage />} />
           </Routes>
         </div>
       </Router>

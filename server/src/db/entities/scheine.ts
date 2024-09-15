@@ -4,6 +4,7 @@ import { Doctor } from './doctor';
 import { Template } from './template';
 import { ScheineAttribute } from './scheineAttribute';
 import { BaseEntity } from './base';
+import { ScheineType } from './scheineType';
 
 @Entity()
 @Index(['patient', 'doctor', 'template'])
@@ -22,6 +23,9 @@ export class Scheine extends BaseEntity {
 
   @OneToMany(() => ScheineAttribute, attribute => attribute.scheine, { cascade: true })
   attributes: ScheineAttribute[];
+
+  @ManyToOne(() => ScheineType)
+  type: ScheineType;
 
   @Column({ nullable: true, type: 'text' })
   pdfUrl: string;
