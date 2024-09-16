@@ -1,6 +1,8 @@
 import { Router, Request, Response } from 'express';
 import { userService } from '../services/userService';
-import { TypeUserPayload } from '../types/userPayload';
+import { CreateUserDto } from '../types/user.dto';
+import { plainToClass } from 'class-transformer';
+import { validate } from 'class-validator';
 
 export const userController: Router = Router();
 
@@ -30,8 +32,7 @@ userController.get('/search', async (req: Request, res: Response) => {
 userController.get('/:id', async (req: Request, res: Response) => {
   try {
     const id: number = Number(req.params.id);
-    const body: TypeUserPayload = req.body;
-    const user = await userService.update(id, body); // Using update to get by ID
+    const user = await userService.findById(id);
     if (user) {
       res.json(user);
     } else {
@@ -44,7 +45,14 @@ userController.get('/:id', async (req: Request, res: Response) => {
 
 userController.post('/', async (req: Request, res: Response) => {
   try {
-    const userData: TypeUserPayload = req.body;
+    const userData: CreateUserDto = plainToClass(CreateUserDto, req.body);
+    const errors = await validate(userData);
+
+    if (errors.length > 0) {
+      res.status(400).json({ errors });
+      return;
+    }
+
     const newUser = await userService.create(userData);
     res.status(201).json(newUser);
   } catch (error) {
@@ -55,7 +63,14 @@ userController.post('/', async (req: Request, res: Response) => {
 userController.put('/:id', async (req: Request, res: Response) => {
   try {
     const id: number = Number(req.params.id);
-    const userData: TypeUserPayload = req.body;
+    const userData: CreateUserDto = plainToClass(CreateUserDto, req.body);
+    const errors = await validate(userData);
+
+    if (errors.length > 0) {
+      res.status(400).json({ errors });
+      return;
+    }
+
     const updatedUser = await userService.update(id, userData);
     if (updatedUser) {
       res.json(updatedUser);

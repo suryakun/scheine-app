@@ -1,6 +1,8 @@
 import { Router, Request, Response } from 'express';
 import { doctorService } from '../services/doctorService';
-import { TypeDoctorPayload } from '../types/doctorPayload';
+import { CreateDoctorDto } from '../types/doctor.dto';
+import { plainToClass } from 'class-transformer';
+import { validate } from 'class-validator';
 
 export const doctorController: Router = Router();
 
@@ -30,8 +32,7 @@ doctorController.get('/search', async (req: Request, res: Response) => {
 doctorController.get('/:id', async (req: Request, res: Response) => {
   try {
     const id: number = Number(req.params.id);
-    const body: TypeDoctorPayload = req.body;
-    const doctor = await doctorService.update(id, body);
+    const doctor = await doctorService.findById(id);
     if (doctor) {
       res.json(doctor);
     } else {
@@ -44,8 +45,14 @@ doctorController.get('/:id', async (req: Request, res: Response) => {
 
 doctorController.post('/', async (req: Request, res: Response) => {
   try {
-    const doctorData: TypeDoctorPayload = req.body;
-    const newDoctor = await doctorService.create(doctorData);
+    const doctorDto: CreateDoctorDto = plainToClass(CreateDoctorDto, req.body);
+    const errors = await validate(doctorDto);
+
+    if (errors.length > 0) {
+      res.status(400).json({ errors });
+      return;
+    }
+    const newDoctor = await doctorService.create(doctorDto);
     res.status(201).json(newDoctor);
   } catch (error) {
     res.status(500).json({ message: 'Error creating doctor', error });
@@ -55,7 +62,14 @@ doctorController.post('/', async (req: Request, res: Response) => {
 doctorController.put('/:id', async (req: Request, res: Response) => {
   try {
     const id: number = Number(req.params.id);
-    const doctorData: TypeDoctorPayload = req.body;
+    const doctorData: CreateDoctorDto = plainToClass(CreateDoctorDto, req.body);
+    const errors = await validate(doctorData);
+
+    if (errors.length > 0) {
+      res.status(400).json({ errors });
+      return;
+    }
+
     const updatedDoctor = await doctorService.update(id, doctorData);
     if (updatedDoctor) {
       res.json(updatedDoctor);

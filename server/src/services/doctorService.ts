@@ -1,7 +1,7 @@
 import { doctorRepository } from '../db/repositories/appRepository';
 import { Doctor } from '../db/entities/doctor.entity';
 import { Like } from 'typeorm';
-import { TypeDoctorPayload } from '../types/doctorPayload';
+import { CreateDoctorDto } from '../types/doctor.dto';
 
 export const doctorService = {
   async fetch(
@@ -15,12 +15,16 @@ export const doctorService = {
     return { doctors, total };
   },
 
-  async create(doctorData: TypeDoctorPayload): Promise<Doctor> {
+  async findById(id: number): Promise<Doctor | null> {
+    return await doctorRepository.findOne({ where: { id } });
+  },
+
+  async create(doctorData: CreateDoctorDto): Promise<Doctor> {
     const newDoctor = doctorRepository.create(doctorData);
     return await doctorRepository.save(newDoctor);
   },
 
-  async update(id: number, doctorData: TypeDoctorPayload): Promise<Doctor | null> {
+  async update(id: number, doctorData: CreateDoctorDto): Promise<Doctor | null> {
     await doctorRepository.update(id, doctorData);
     return await doctorRepository.findOne({ where: { id } });
   },
