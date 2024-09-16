@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/accordion"
 import { DoctorSearchDropdown } from "./doctor-search-dropdown"
 import { UserSearchDropdown } from "./user-search-dropdown"
+import { ScheineTypeSearchDropdown } from "./scheine-type-dropdown"
 
 export const EditorInput = () => {
   return (
@@ -25,6 +26,7 @@ export const EditorInput = () => {
       <AccordionItem value="schein-type">
         <AccordionTrigger>Scheine</AccordionTrigger>
         <AccordionContent>
+          <ScheineTypeSearchDropdown />
         </AccordionContent>
       </AccordionItem>
     </Accordion>

@@ -1,6 +1,7 @@
 import api from '../lib/api';
 import { ScheineType } from '../types/scheine-type';
 
-export const fetchScheineTypes = () => api.get<ScheineType[]>('/scheine-types');
+export const fetchScheineTypes = async () => await api.get<ScheineType[]>('/scheine-types');
 
-export const fetchScheineType = (id: number) => api.get<ScheineType>(`/scheine-types/${id}`);
+export const fetchScheineType = async (id: number) =>
+  await api.get<ScheineType>(`/scheine-types/${id}`);

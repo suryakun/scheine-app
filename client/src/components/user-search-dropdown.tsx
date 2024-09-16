@@ -49,7 +49,7 @@ export function UserSearchDropdown() {
         <Command>
           <CommandInput placeholder="Search patient..." />
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandEmpty>No patient found.</CommandEmpty>
             <CommandGroup>
               {options.map((opt) => (
                 <CommandItem

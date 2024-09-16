@@ -16,6 +16,7 @@ export class Scheine extends BaseEntity {
 
   @Column({ nullable: true, type: 'text' })
   pdfUrl: string;
+
   @ManyToOne(() => User, user => user.scheine)
   patient: Relation<User>;
 

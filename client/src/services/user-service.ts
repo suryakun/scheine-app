@@ -1,7 +1,8 @@
 import api from '../lib/api';
 import { UserInput } from '@/types/user';
 
-export const fetchUser = (userId: string) => api.get(`/users/${userId}`);
+export const fetchUser = (page: number, limit: number) =>
+  api.get(`/users`, { params: { page, limit } });
 
 export const createUser = (userData: UserInput) => api.post('/users', userData);
 

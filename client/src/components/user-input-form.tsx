@@ -26,6 +26,8 @@ export const UserInputForm = (props: UserInputFormProps) => {
     props.onSaveComplete();
   }, [createUser, form, props])
 
+  console.log(form.getValues())
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
