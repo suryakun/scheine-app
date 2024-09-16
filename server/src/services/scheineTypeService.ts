@@ -1,14 +1,33 @@
 import { ScheineType } from '../db/entities/scheineType.entity';
-import { scheineTypeRepository } from '../db/repositories/appRepository';
+import {
+  attributeDefinitionRepository,
+  scheineTypeRepository,
+} from '../db/repositories/appRepository';
+import logger from '../utils/logger';
 export class ScheineTypeService {
   scheineTypeRepository: typeof scheineTypeRepository;
+  attributeDefinitionRepository: typeof attributeDefinitionRepository;
 
   constructor() {
     this.scheineTypeRepository = scheineTypeRepository;
+    this.attributeDefinitionRepository = attributeDefinitionRepository;
   }
 
   async getAllScheineTypes(): Promise<ScheineType[]> {
-    return this.scheineTypeRepository.find();
+    const scheineTypes = await this.scheineTypeRepository
+      .createQueryBuilder('scheineType')
+      .leftJoinAndSelect('scheineType.attributeDefinitions', 'attributeDefinition')
+      .select([
+        'scheineType',
+        'attributeDefinition.key',
+        'attributeDefinition.label',
+        'attributeDefinition.type',
+        'attributeDefinition.description',
+      ])
+      .getMany();
+
+    logger.info(`Fetched ${scheineTypes.length} scheine types`);
+    return scheineTypes;
   }
 
   async getScheineTypeById(id: number): Promise<ScheineType | null> {

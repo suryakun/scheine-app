@@ -19,7 +19,11 @@ import { useState } from 'react'
 import { useScheineTypes } from "@/hooks/use-scheine-type-query"
 import { ScheineType } from "@/types/scheine-type"
 
-export function ScheineTypeSearchDropdown() {
+type ScheineTypeSearchDropdownProps = {
+  onChange: (value: ScheineType) => void
+}
+
+export function ScheineTypeSearchDropdown(props: ScheineTypeSearchDropdownProps) {
   const [open, setOpen] = useState<boolean>(false)
   const [value, setValue] = useState<string>("")
   const { scheineTypeQuery } = useScheineTypes()
@@ -56,7 +60,12 @@ export function ScheineTypeSearchDropdown() {
                   key={opt.value}
                   value={opt.value?.toString()}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    const val = currentValue === value ? "" : currentValue
+                    setValue(val)
+                    const selectedType = types.find((d) => d.id?.toString() === val);
+                    if (selectedType) {
+                      props.onChange(selectedType);
+                    }
                     setOpen(false)
                   }}
                 >

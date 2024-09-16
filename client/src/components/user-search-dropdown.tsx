@@ -19,7 +19,11 @@ import {
 import { useState } from 'react'
 import { User } from "@/types/user"
 
-export function UserSearchDropdown() {
+type UserSearchDropdownProps = {
+  onChange: (value: User) => void
+}
+
+export function UserSearchDropdown(props: UserSearchDropdownProps) {
   const [open, setOpen] = useState<boolean>(false)
   const [value, setValue] = useState<string>("")
   const { userQuery } = useUsersQuery(1, 100);
@@ -56,7 +60,12 @@ export function UserSearchDropdown() {
                   key={opt.value}
                   value={opt.value.toString()}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    const val = currentValue === value ? "" : currentValue
+                    setValue(val)
+                    const selectedUser = users.find((d) => d.id.toString() === val);
+                    if (selectedUser) {
+                      props.onChange(selectedUser);
+                    }
                     setOpen(false)
                   }}
                 >

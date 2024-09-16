@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 export class SeedScheineTypes1686000000000 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     // Clear existing data
-    await queryRunner.query(`TRUNCATE TABLE attribute_definition CASCADE`);
+    await queryRunner.query(`TRUNCATE TABLE attribute_definitions CASCADE`);
     await queryRunner.query(`TRUNCATE TABLE scheine_type CASCADE`);
 
     // Insert ScheinTypes
@@ -14,7 +14,7 @@ export class SeedScheineTypes1686000000000 implements MigrationInterface {
 
     // Insert AttributeDefinitions
     await queryRunner.query(`
-            INSERT INTO attribute_definition (key, type, "scheineTypeId", label)
+            INSERT INTO attribute_definitions (key, type, "scheineTypeId", label)
             VALUES
             ('Kostenträgerkennung', 'text', (SELECT id FROM scheine_type WHERE name = 'Musstersammlung'), ''),
             ('Versicherten-Nr.', 'text', (SELECT id FROM scheine_type WHERE name = 'Musstersammlung'), ''),
@@ -34,7 +34,7 @@ export class SeedScheineTypes1686000000000 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     // Remove all seeded data
-    await queryRunner.query(`TRUNCATE TABLE attribute_definition CASCADE`);
+    await queryRunner.query(`TRUNCATE TABLE attribute_definitions CASCADE`);
     await queryRunner.query(`TRUNCATE TABLE scheine_type CASCADE`);
   }
 }
