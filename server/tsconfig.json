@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "ES2023",
     "module": "ESNext",
     "moduleResolution": "Node",
     "esModuleInterop": true,
@@ -17,12 +17,13 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./*"]
     },
-    "rootDir": "src"
+    "baseUrl": "./",
+    "rootDir": "./",
+    "outDir": "./dist"
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*", "ormconfig.ts"],
+  "exclude": ["node_modules", "dist"]
 }

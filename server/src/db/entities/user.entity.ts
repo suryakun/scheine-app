@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Scheine } from './scheine';
-import { BaseEntity } from './base';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Relation } from 'typeorm';
+import { BaseEntity } from './base.entity';
+import { Scheine } from './scheine.entity';
+import 'reflect-metadata';
 
 @Entity()
 export class User extends BaseEntity {
@@ -26,5 +27,5 @@ export class User extends BaseEntity {
   address: string;
 
   @OneToMany(() => Scheine, scheine => scheine.patient)
-  scheine: Scheine[];
+  scheine: Relation<Scheine[]>;
 }

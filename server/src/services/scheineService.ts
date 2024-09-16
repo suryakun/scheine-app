@@ -1,85 +1,66 @@
-import { Scheine } from '../db/entities/scheine';
-import { AttributeDefinition } from '../db/entities/attributeDefinition';
-import { ScheineAttribute } from '../db/entities/scheineAttribute';
-import {
-  scheineRepository,
-  attributeDefinitionRepository,
-  scheineAttributeRepository,
-} from '../db/repositories/appRepository';
+import { Scheine } from '../db/entities/scheine.entity';
+import { CreateScheineDto } from '../types/scheine.dto';
+import { scheineRepository, scheineTypeRepository } from '@/db/repositories/appRepository';
 
-export const scheineService = {
-  async create(scheineData: Partial<Scheine>): Promise<Scheine> {
-    const newScheine = scheineRepository.create(scheineData);
-    return await scheineRepository.save(newScheine);
-  },
+export class ScheineService {
+  scheineRepository: typeof scheineRepository;
+  scheineTypeRepository: typeof scheineTypeRepository;
+  constructor() {
+    this.scheineRepository = scheineRepository;
+    this.scheineTypeRepository = scheineTypeRepository;
+  }
 
-  async update(id: number, scheineData: Partial<Scheine>): Promise<Scheine | null> {
-    await scheineRepository.update(id, scheineData);
-    return await this.getById(id);
-  },
+  async findAll(): Promise<Scheine[]> {
+    return this.scheineRepository.find({
+      relations: ['patient', 'doctor', 'template', 'type'],
+    });
+  }
 
-  async getById(id: number): Promise<Scheine | null> {
-    return await scheineRepository.findOne({
+  async findOne(id: number): Promise<Scheine | null> {
+    return this.scheineRepository.findOne({
       where: { id },
-      relations: [
-        'scheineType',
-        'scheineType.attributeDefinitions',
-        'attributes',
-        'attributes.attributeDefinition',
-      ],
+      relations: ['patient', 'doctor', 'template', 'type'],
     });
-  },
+  }
 
-  async fetch(
-    page: number = 1,
-    pageSize: number = 10,
-  ): Promise<{ scheines: Scheine[]; total: number }> {
-    const [scheines, total] = await scheineRepository.findAndCount({
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-      relations: [
-        'scheineType',
-        'scheineType.attributeDefinitions',
-        'attributes',
-        'attributes.attributeDefinition',
-      ],
-    });
-    return { scheines, total };
-  },
+  async create(createScheineDto: CreateScheineDto): Promise<Scheine> {
+    const { type, attributes, ...rest } = createScheineDto;
 
-  async addAttributeDefinition(
-    scheineTypeId: number,
-    attributeData: Partial<AttributeDefinition>,
-  ): Promise<AttributeDefinition> {
-    const newAttributeDef = attributeDefinitionRepository.create({
-      ...attributeData,
-      scheineType: { id: scheineTypeId },
-    });
-    return await attributeDefinitionRepository.save(newAttributeDef);
-  },
-
-  async fillAttributeValue(
-    scheineId: number,
-    attributeDefinitionId: number,
-    value: string,
-  ): Promise<ScheineAttribute> {
-    let scheineAttribute = await scheineAttributeRepository.findOne({
-      where: {
-        scheine: { id: scheineId },
-        attributeDefinition: { id: attributeDefinitionId },
-      },
+    const scheineType = await this.scheineTypeRepository.findOne({
+      where: { id: type.id },
     });
 
-    if (!scheineAttribute) {
-      scheineAttribute = scheineAttributeRepository.create({
-        scheine: { id: scheineId },
-        attributeDefinition: { id: attributeDefinitionId },
-        value,
-      });
-    } else {
-      scheineAttribute.value = value;
+    if (!scheineType) {
+      throw new Error('Invalid ScheineType');
     }
 
-    return await scheineAttributeRepository.save(scheineAttribute);
-  },
-};
+    const validatedAttributes = this.validateAttributes(
+      attributes,
+      Object.fromEntries(scheineType.attributeDefinitions.map(def => [def.key, def.type])),
+    );
+
+    const scheine = this.scheineRepository.create({
+      ...rest,
+      type,
+      attributes: validatedAttributes,
+    });
+
+    return this.scheineRepository.save(scheine);
+  }
+
+  private validateAttributes(
+    attributes: { [key: string]: string },
+    attributeDefinition: { [key: string]: string },
+  ): { [key: string]: string } {
+    const validatedAttributes: { [key: string]: string } = {};
+
+    for (const [key, value] of Object.entries(attributes)) {
+      if (attributeDefinition.hasOwnProperty(key)) {
+        // You can add more specific validation based on the attributeDefinition type here
+        validatedAttributes[key] = value;
+      }
+    }
+
+    return validatedAttributes;
+  }
+}

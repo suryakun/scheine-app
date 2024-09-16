@@ -1,5 +1,5 @@
 import { userRepository } from '../db/repositories/appRepository';
-import { User } from '../db/entities/user';
+import { User } from '../db/entities/user.entity';
 import { Like } from 'typeorm';
 import { TypeUserPayload } from '../types/userPayload';
 

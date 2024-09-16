@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Template } from './template';
-import { AttributeDefinition } from './attributeDefinition';
-import { BaseEntity } from './base';
-import { Scheine } from './scheine';
+import { BaseEntity } from './base.entity';
+import { Template } from './template.entity';
+import { AttributeDefinition } from './attributeDefinition.entity';
+import { Scheine } from './scheine.entity';
 
 @Entity()
 export class ScheineType extends BaseEntity {

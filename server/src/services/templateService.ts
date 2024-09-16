@@ -1,4 +1,4 @@
-import { Template } from '../db/entities/template';
+import { Template } from '../db/entities/template.entity';
 import { templateRepository, scheineRepository } from '../db/repositories/appRepository';
 
 export const templateService = {

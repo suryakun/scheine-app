@@ -9,7 +9,10 @@
     "dev": "tsx watch --env-file=.env src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "migration:run": "tsx ./node_modules/typeorm/cli.js migration:run -d src/db/datasource.ts",
-    "migration:generate": "tsx ./node_modules/typeorm/cli.js migration:generate -d src/db/datasource.ts"
+    "migration:create": "tsx -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create -d src/db/datasource.ts",
+    "migration:generate": "tsx -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -d src/db/datasource.ts",
+    "seed:config": "tsx -r dotenv/config ./node_modules/typeorm-seeding/dist/cli.js config",
+    "seed:run": "tsx -r dotenv/config ./node_modules/typeorm-seeding/dist/cli.js seed"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +26,7 @@
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.5.0",
     "@typescript-eslint/parser": "^8.5.0",
+    "class-validator": "^0.14.1",
     "eslint": "^9.10.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -31,7 +35,10 @@
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
+    "tsc-alias": "^1.8.10",
+    "tsconfig-paths": "^4.2.0",
     "tsx": "^4.19.0",
+    "typeorm-seeding": "^1.6.1",
     "typescript": "^5.6.2"
   },
   "dependencies": {

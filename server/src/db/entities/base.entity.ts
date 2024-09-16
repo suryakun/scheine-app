@@ -1,5 +1,5 @@
-import { Column } from 'typeorm';
 import 'reflect-metadata';
+import { Column } from 'typeorm';
 
 export abstract class BaseEntity {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

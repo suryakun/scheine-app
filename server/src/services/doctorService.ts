@@ -1,5 +1,5 @@
 import { doctorRepository } from '../db/repositories/appRepository';
-import { Doctor } from '../db/entities/doctor';
+import { Doctor } from '../db/entities/doctor.entity';
 import { Like } from 'typeorm';
 import { TypeDoctorPayload } from '../types/doctorPayload';
 
@@ -31,7 +31,7 @@ export const doctorService = {
     pageSize: number = 10,
   ): Promise<{ doctors: Doctor[]; total: number }> {
     const [doctors, total] = await doctorRepository.findAndCount({
-      where: { name: Like(`%${name}%`) },
+      where: { first_name: Like(`%${name}%`) },
       skip: (page - 1) * pageSize,
       take: pageSize,
     });

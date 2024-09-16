@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Scheine } from './scheine';
-import { BaseEntity } from './base';
+import { Scheine } from './scheine.entity';
+import { BaseEntity } from './base.entity';
 
 @Entity()
 export class Doctor extends BaseEntity {

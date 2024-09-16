@@ -1,7 +1,11 @@
-import { ScheineType } from '@/db/entities/scheineType';
-import { schineTypeRepository } from '@/db/repositories/appRepository';
+import { ScheineType } from '../db/entities/scheineType.entity';
+import { scheineTypeRepository } from '../db/repositories/appRepository';
 export class ScheineTypeService {
-  constructor(private scheineTypeRepository = schineTypeRepository) {}
+  scheineTypeRepository: typeof scheineTypeRepository;
+
+  constructor() {
+    this.scheineTypeRepository = scheineTypeRepository;
+  }
 
   async getAllScheineTypes(): Promise<ScheineType[]> {
     return this.scheineTypeRepository.find();
