@@ -7,8 +7,8 @@ const schemaFields: z.ZodType<Scheine> = z.object({
   patientId: z.number(),
   doctorId: z.number(),
   templateId: z.number(),
-  scheinTypeId: z.number(),
-  attributes: z.record(z.string()),
+  scheineTypeId: z.number(),
+  attributes: z.record(z.string(), z.union([z.string(), z.boolean()])),
 });
 
 export const useScheineForm = (defaultValues = {}) => {

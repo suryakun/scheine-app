@@ -1,6 +1,6 @@
 import { Scheine } from '../db/entities/scheine.entity';
 import { CreateScheineDto } from '../types/scheine.dto';
-import { scheineRepository, scheineTypeRepository } from '@/db/repositories/appRepository';
+import { scheineRepository, scheineTypeRepository } from '../db/repositories/appRepository';
 
 export class ScheineService {
   scheineRepository: typeof scheineRepository;

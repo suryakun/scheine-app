@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verordnung von Krankenhausbehandlung</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        .form-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid #ff0000;
+            background-color: #ffebeb;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .form-header {
+            color: #ff0000;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .form-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .form-column {
+            flex: 1;
+            padding: 0 5px;
+        }
+        .form-field {
+            border: 1px solid #ff0000;
+            padding: 5px;
+            margin-bottom: 5px;
+            background-color: #fff;
+        }
+        .form-field-label {
+            font-size: 12px;
+            color: #ff0000;
+        }
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-item input {
+            margin-right: 5px;
+        }
+        .diagnose-field {
+            height: 150px;
+        }
+        .footer-text {
+            text-align: right;
+            color: #ff0000;
+            font-style: italic;
+            margin-top: 20px;
+        }
+        .form-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff0000;
+        }
+        .signature-line {
+            border-top: 1px solid #ff0000;
+            margin-top: 20px;
+            padding-top: 5px;
+            font-size: 12px;
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">Freigabe 01.09.2014</div>
+        <div class="form-number">2</div>
+        <div class="form-row">
+            <div class="form-column">
+                <div class="form-field">
+                    <div class="form-field-label">Krankenkasse bzw. Kostenträger</div>
+                    <!-- Kostenträgerkennung -->
+                    <div>{{krankenkasse_kostentraeger}}</div>
+                </div>
+                <div class="form-field">
+                    <div class="form-field-label">Name, Vorname des Versicherten</div>
+                    <!-- Versicherten-Nr. -->
+                    <div>{{name}}</div>
+                </div>
+                <div class="form-field" style="text-align: right;">
+                    <div class="form-field-label">geb. am</div>
+                    <!-- Status -->
+                    <div>{{birthday}}</div>
+                </div>
+                <div class="form-field">
+                    <div class="form-field-label">Kostenträgerkennung</div>
+                    <div>{{kostentraegerkennung}}</div>
+                    <div class="form-field-label">Versicherten-Nr.</div>
+                    <div>{{versicherten_nr}}</div>
+                    <div class="form-field-label">Status</div>
+                    <div>{{status}}</div>
+                </div>
+                <div class="form-field">
+                    <div class="form-field-label">Betriebsstätten-Nr.</div>
+                    <!-- Betriebsstätten-Nr. -->
+                    <div>{{betriebsstaetten_nr}}</div>
+                    <div class="form-field-label">Arzt-Nr.</div>
+                    <!-- Arzt-Nr. -->
+                    <div>{{arzt_nr}}</div>
+                    <div class="form-field-label">Datum</div>
+                    <!-- Datum -->
+                    <div>{{datum}}</div>
+                </div>
+            </div>
+            <div class="form-column">
+                <div class="form-header">Verordnung von Krankenhausbehandlung</div>
+                <div class="form-field-label">(Nur bei medizinischer Notwendigkeit zulässig)</div>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <!-- Belegarzt-behandlung -->
+                        <input type="checkbox" id="belegarzt" {{#if belegarzt_behandlung}}checked{{/if}}>
+                        <label for="belegarzt">Belegarzt-behandlung</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <!-- Notfall -->
+                        <input type="checkbox" id="notfall" {{#if notfall}}checked{{/if}}>
+                        <label for="notfall">Notfall</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <!-- Unfall, Unfallfolgen -->
+                        <input type="checkbox" id="unfall" {{#if unfall_unfallfolgen}}checked{{/if}}>
+                        <label for="unfall">Unfall, Unfallfolgen</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <!-- Versorgungs-leiden (BVG) -->
+                        <input type="checkbox" id="versorgung" {{#if versorgungs_leiden_bvg}}checked{{/if}}>
+                        <label for="versorgung">Versorgungs-leiden (BVG)</label>
+                    </div>
+                </div>
+                <div class="form-field" style="margin-top: 10px;">
+                    <div class="form-field-label">Nächsterreichbare, geeignete Krankenhäuser</div>
+                    <!-- Nächsterreichbare, geeignete Krankenhäuser -->
+                    <div>{{naechstereichbare_krankenhaeuser}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-field diagnose-field">
+            <div class="form-field-label">Diagnose</div>
+            <!-- Diagnose -->
+            <div>{{diagnose}}</div>
+        </div>
+        <div class="signature-line">
+            Vertragsarztstempel / Unterschrift des Arztes
+            <!-- Vertragsarztstempel / Unterschrift des Arztes -->
+            <div>{{vertragsarztstempel_unterschrift_arzt}}</div>
+        </div>
+        <div class="footer-text">Verbindliches Muster</div>
+    </div>
+</body>
+</html>

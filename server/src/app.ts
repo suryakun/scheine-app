@@ -9,6 +9,7 @@ import morgan from 'morgan';
 import { doctorController } from './controllers/doctorController';
 import { fileURLToPath } from 'url';
 import { scheineTypeController } from './controllers/scheineTypeController';
+import { templateController } from './controllers/templateController';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,6 +28,7 @@ app.use(apiKeyMiddleware);
 app.use('/api/users', userController);
 app.use('/api/doctors', doctorController);
 app.use('/api/scheine-types', scheineTypeController);
+app.use('/api/templates', templateController);
 
 AppDataSource.initialize()
   .then(() => {
