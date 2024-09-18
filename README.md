@@ -2,6 +2,9 @@
 
 This project is a system for generating various types of 'Scheine' used in German medical practices. It consists of two main parts: the `client` (frontend) and the `server` (backend). Both are set up to run with Docker and share the same Node.js environment.
 
+![Screenshot 2024-09-18 at 16 36 25](https://github.com/user-attachments/assets/4cd83ca3-eaa6-48cf-8e61-f892d4610048)
+
+
 ## Requirements
 
 - [Docker](https://www.docker.com/) installed on your machine.
