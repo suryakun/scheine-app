@@ -10,11 +10,9 @@ COPY pnpm-lock.yaml ./
 RUN pnpm fetch
 
 COPY package.json ./
-RUN pnpm install -r --offline
+RUN pnpm install
 
 COPY . .
-
-RUN pnpm run migration:run
 
 # Production stage
 FROM node:22.3.0-alpine
@@ -40,8 +38,4 @@ WORKDIR /app
 COPY --from=builder /app/package.json /app/pnpm-lock.yaml ./
 RUN pnpm install --prod
 
-COPY --from=builder /app/dist ./dist
-
 EXPOSE 8080
-
-CMD ["pnpm", "start"]

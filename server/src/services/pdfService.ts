@@ -17,7 +17,7 @@ export const pdfService = {
     const browser = await puppeteer.launch({
       headless: 'shell',
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      timeout: 60000, // Increase timeout to 60 seconds
+      timeout: 300000, // Increase timeout to 60 seconds
     });
     const page = await browser.newPage();
     await page.setContent(renderedHtml, { waitUntil: 'networkidle0' });

@@ -21,6 +21,16 @@ services:
     environment:
       - DATABASE_URL=postgresql://postgres:testing1234@postgres:5432/klinik
       - NODE_ENV=development
+      - API_KEY=testing
+      - DB_HOST=postgres
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=testing1234
+      - DB_NAME=klinik
+    command: >
+      sh -c "
+      pnpm run migration:run &&
+      pnpm start
+      "
     ports:
       - '8080:8080'
     volumes:
@@ -34,7 +44,8 @@ services:
     depends_on:
       - server
     environment:
-      - REACT_APP_API_URL=http://server:8080
+      - VITE_API_URL=http://server:8080/api
+      - VITE_API_KEY=testing
     ports:
       - '3000:80'
     volumes:

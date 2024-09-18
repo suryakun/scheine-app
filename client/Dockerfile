@@ -10,7 +10,7 @@ COPY pnpm-lock.yaml ./
 RUN pnpm fetch
 
 COPY package.json ./
-RUN pnpm install -r --offline
+RUN pnpm install
 
 COPY . .
 
@@ -19,7 +19,7 @@ RUN pnpm run build
 # Production stage
 FROM nginx:alpine
 
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE 80
 
