@@ -12,4 +12,7 @@ export class CreateDoctorDto {
 
   @IsString()
   specialization: string;
+
+  @IsString()
+  doctor_number: string;
 }

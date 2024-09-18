@@ -7,6 +7,7 @@ const doctorSchema = z.object({
   first_name: z.string().min(1, 'Name is required'),
   last_name: z.string().optional(),
   specialization: z.string().min(1, 'Specialty is required'),
+  doctor_number: z.string().min(1, 'Specialty is required'),
   email: z.string().email('Invalid email address'),
 });
 
@@ -19,6 +20,7 @@ export function useDoctorForm({ defaultValues = {} }) {
       first_name: '',
       last_name: '',
       specialization: '',
+      doctor_number: '',
       email: '',
       ...defaultValues,
     },

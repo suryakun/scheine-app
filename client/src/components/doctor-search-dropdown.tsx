@@ -20,12 +20,13 @@ import { useState } from 'react'
 import { Doctor } from "@/types/doctor"
 
 type DoctorSearchDropdownProps = {
+  initialValue: string,
   onChange: (value: Doctor) => void
 }
 
 export function DoctorSearchDropdown(props: DoctorSearchDropdownProps) {
   const [open, setOpen] = useState<boolean>(false)
-  const [value, setValue] = useState<string>("")
+  const [value, setValue] = useState<string>(props.initialValue)
   const { doctorsQuery } = useDoctorsQuery(1, 100);
   const doctors = doctorsQuery.data?.doctors || [];
 

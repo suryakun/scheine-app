@@ -1,7 +1,6 @@
 export type Scheine = {
   patientId: number;
   doctorId: number;
-  templateId: number;
-  scheineTypeId: number;
+  typeId: number;
   attributes: Record<string, string | boolean>;
 };

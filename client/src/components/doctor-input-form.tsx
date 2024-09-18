@@ -74,6 +74,18 @@ export const DoctorForm = (props: DoctorFormProps) => {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="doctor_number"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Doctor number</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
         <Button type="submit" disabled={isLoading}>
           <PlusIcon />{isLoading ? 'Adding...' : 'Add Doctor'}
         </Button>

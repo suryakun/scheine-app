@@ -45,6 +45,7 @@ export const DoctorTable = () => {
             <TableHead>Last Name</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Specialization</TableHead>
+            <TableHead>Doctor number</TableHead>
             <TableHead className="text-right">Created at</TableHead>
           </TableRow>
         </TableHeader>
@@ -58,6 +59,7 @@ export const DoctorTable = () => {
                   <TableCell>{doctor.last_name}</TableCell>
                   <TableCell>{doctor.email}</TableCell>
                   <TableCell>{doctor.specialization}</TableCell>
+                  <TableCell>{doctor.doctor_number}</TableCell>
                   <TableCell className="text-right">{format(doctor.createdAt, "PPP")}</TableCell>
                 </TableRow>
               )

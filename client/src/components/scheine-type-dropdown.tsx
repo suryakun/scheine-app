@@ -18,9 +18,6 @@ import {
 import { useCallback, useMemo, useState } from 'react'
 import { useScheineTypes } from "@/hooks/use-scheine-type-query"
 import { ScheineType } from "@/types/scheine-type"
-import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form"
-import { Input } from "./ui/input"
-import { Checkbox } from "./ui/checkbox"
 import { UseFormReturn, FieldValues } from 'react-hook-form';
 
 type ScheineTypeSearchDropdownProps = {
@@ -30,9 +27,8 @@ type ScheineTypeSearchDropdownProps = {
 
 export function ScheineTypeSearchDropdown(props: ScheineTypeSearchDropdownProps) {
   const [open, setOpen] = useState<boolean>(false)
-  const [value, setValue] = useState<string>("")
+  const [value, setValue] = useState<string>(props.form.getValues('scheineTypeId')?.toString())
   const { scheineTypeQuery } = useScheineTypes()
-  const [selectedType, setSelectedType] = useState<ScheineType>()
 
   const types = useMemo<ScheineType[]>(() => {
     return scheineTypeQuery.data || []
@@ -48,7 +44,6 @@ export function ScheineTypeSearchDropdown(props: ScheineTypeSearchDropdownProps)
     setValue(val)
     const selectedType = types.find((d) => d.id?.toString() === val);
     if (selectedType) {
-      setSelectedType(selectedType)
       props.onChange(selectedType);
     }
     setOpen(false)
@@ -96,44 +91,6 @@ export function ScheineTypeSearchDropdown(props: ScheineTypeSearchDropdownProps)
           </Command>
         </PopoverContent>
       </Popover>
-      <div className="pt-4">
-        {selectedType !== undefined ?
-          (
-            <section className="flex flex-col gap-4">
-              <Form {...props.form}>
-                {selectedType.attributeDefinitions.map((attr, index) => {
-                  return <FormField
-                    key={index}
-                    control={props.form.control}
-                    defaultValue={props.form.getValues(`attributes[${attr.key}]`)}
-                    name={`attributes[${attr.key}]`}
-                    render={({ field }) => {
-                      return (
-                        <FormItem>
-                          <FormLabel>{attr.label}</FormLabel>
-                          <FormControl>
-                            {attr.type === 'text' ? (
-                              <Input placeholder={attr.key} {...field} />
-                            ) : (
-                              <Checkbox
-                                onBlur={field.onBlur}
-                                ref={field.ref}
-                                name={field.name}
-                                checked={!!field.value}
-                                onCheckedChange={field.onChange}
-                              />
-                            )}
-                          </FormControl>
-                        </FormItem>
-                      )
-                    }}
-                  />
-                })}
-              </Form>
-            </section>
-          ) : null
-        }
-      </div>
     </>
   )
 }

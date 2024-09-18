@@ -20,12 +20,13 @@ import { useState } from 'react'
 import { User } from "@/types/user"
 
 type UserSearchDropdownProps = {
+  initialValue: string,
   onChange: (value: User) => void
 }
 
 export function UserSearchDropdown(props: UserSearchDropdownProps) {
   const [open, setOpen] = useState<boolean>(false)
-  const [value, setValue] = useState<string>("")
+  const [value, setValue] = useState<string>(props.initialValue)
   const { userQuery } = useUsersQuery(1, 100);
   const users = userQuery.data?.users || [];
 

@@ -9,7 +9,7 @@ type PreviewProps = {
   values: Scheine
 }
 export const Preview = (props: PreviewProps) => {
-  const { templateQuery } = useTemplateQuery(props.values.scheineTypeId)
+  const { templateQuery } = useTemplateQuery(props.values.typeId)
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
   const renderedTemplate = useMemo(() => {
@@ -40,7 +40,7 @@ export const Preview = (props: PreviewProps) => {
   if (templateQuery.isLoading) return <Loading />
 
   return (
-    <Card className="w-[700px] h-[700px]">
+    <Card className="w-[700px] h-[800px]">
       <iframe
         ref={iframeRef}
         title="Template Preview"

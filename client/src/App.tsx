@@ -13,6 +13,7 @@ import { UserPage } from './components/user-page';
 import { DoctorPage } from './components/doctor-page';
 import { cn } from './lib/utils';
 import { EditorPage } from './components/editor-page';
+import { HomePage } from './components/home-page';
 
 const queryClient = new QueryClient();
 
@@ -78,7 +79,7 @@ function App() {
             </NavigationMenuList>
           </NavigationMenu>
           <Routes>
-            <Route path="/" element={<div />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/users" element={<UserPage />} />
             <Route path="/doctors" element={<DoctorPage />} />
             <Route path="/scheine" element={<EditorPage />} />

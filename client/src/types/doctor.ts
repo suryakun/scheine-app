@@ -4,6 +4,7 @@ export type Doctor = {
   last_name: string;
   specialization: string;
   email: string;
+  doctor_number: string;
   createdAt: Date;
 };
 
@@ -12,6 +13,7 @@ export type DoctorInput = {
   last_name: string;
   specialization: string;
   email: string;
+  doctor_number: string;
 };
 
 export type DoctorSearchParams = {

@@ -10,6 +10,7 @@ import { doctorController } from './controllers/doctorController';
 import { fileURLToPath } from 'url';
 import { scheineTypeController } from './controllers/scheineTypeController';
 import { templateController } from './controllers/templateController';
+import { scheineController } from './controllers/scheineController';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,6 +30,7 @@ app.use('/api/users', userController);
 app.use('/api/doctors', doctorController);
 app.use('/api/scheine-types', scheineTypeController);
 app.use('/api/templates', templateController);
+app.use('/api/scheine', scheineController);
 
 AppDataSource.initialize()
   .then(() => {

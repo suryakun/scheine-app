@@ -12,7 +12,7 @@ export class Scheine extends BaseEntity {
   id: number;
 
   @Column('simple-json')
-  attributes: { [key: string]: string };
+  attributes: Record<string, string | boolean>;
 
   @Column({ nullable: true, type: 'text' })
   pdfUrl: string;

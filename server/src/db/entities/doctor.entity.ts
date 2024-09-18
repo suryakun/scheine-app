@@ -19,6 +19,9 @@ export class Doctor extends BaseEntity {
   @Column({ type: 'varchar', length: 255 })
   specialization: string;
 
+  @Column({ type: 'varchar', length: 255 })
+  doctor_number: string;
+
   @OneToMany(() => Scheine, scheine => scheine.doctor)
   scheine: Scheine[];
 }

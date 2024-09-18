@@ -12,5 +12,34 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=postgresql://postgres:testing1234@postgres:5432/klinik
+      - NODE_ENV=development
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    depends_on:
+      - server
+    environment:
+      - REACT_APP_API_URL=http://server:8080
+    ports:
+      - '3000:80'
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+
 volumes:
   postgres_data:

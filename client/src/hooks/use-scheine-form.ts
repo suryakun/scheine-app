@@ -6,8 +6,7 @@ import { z } from 'zod';
 const schemaFields: z.ZodType<Scheine> = z.object({
   patientId: z.number(),
   doctorId: z.number(),
-  templateId: z.number(),
-  scheineTypeId: z.number(),
+  typeId: z.number(),
   attributes: z.record(z.string(), z.union([z.string(), z.boolean()])),
 });
 

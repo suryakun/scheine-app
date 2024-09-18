@@ -1,22 +1,22 @@
-import { IsObject, IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsObject, IsOptional, IsString } from 'class-validator';
 
 export class CreateScheineDto {
-  @IsObject()
-  attributes: { [key: string]: string };
-
   @IsOptional()
   @IsString()
   pdfUrl?: string;
 
-  @IsObject()
-  patient: { id: number };
+  @IsNumber()
+  patientId: number;
+
+  @IsNumber()
+  doctorId: number;
+
+  @IsNumber()
+  templateId: number;
+
+  @IsNumber()
+  typeId: number;
 
   @IsObject()
-  doctor: { id: number };
-
-  @IsObject()
-  template: { id: number };
-
-  @IsObject()
-  type: { id: number };
+  attributes: Record<string, string | boolean>;
 }
