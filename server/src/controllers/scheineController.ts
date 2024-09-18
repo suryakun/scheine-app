@@ -3,6 +3,7 @@ import { scheineService } from '../services/scheineService';
 import { pdfService } from '../services/pdfService';
 import { plainToClass } from 'class-transformer';
 import { CreateScheineDto } from '../types/scheine.dto';
+import logger from '../utils/logger';
 
 const scheineController: Router = Router();
 
@@ -25,7 +26,7 @@ scheineController.post('/', async (req: Request, res: Response) => {
     );
     res.send(pdf);
   } catch (error) {
-    console.error('Error generating PDF:', error);
+    logger.error('Error generating PDF:', error);
     res.status(500).json({ error: 'Error generating PDF' });
   }
 });

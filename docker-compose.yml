@@ -26,11 +26,6 @@ services:
       - DB_USERNAME=postgres
       - DB_PASSWORD=testing1234
       - DB_NAME=klinik
-    command: >
-      sh -c "
-      pnpm run migration:run &&
-      pnpm start
-      "
     ports:
       - '8080:8080'
     volumes:

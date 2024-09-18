@@ -16,9 +16,22 @@ export const pdfService = {
 
     const browser = await puppeteer.launch({
       headless: 'shell',
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      timeout: 300000, // Increase timeout to 60 seconds
+      executablePath: '/usr/bin/google-chrome',
+      defaultViewport: null,
+      ignoreDefaultArgs: ['--enable-automation'],
+      args: [
+        '--disable-infobars',
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--disable-gpu',
+        '--window-size=1920x1080',
+      ],
+      timeout: 30_000, // 30 seconds
+      protocolTimeout: 60_000, // 60 seconds
     });
+
     const page = await browser.newPage();
     await page.setContent(renderedHtml, { waitUntil: 'networkidle0' });
 
