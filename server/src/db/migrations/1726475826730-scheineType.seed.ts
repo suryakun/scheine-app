@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export class SeedScheineTypes1686000000000 implements MigrationInterface {
+export class SeedScheineTypes1726475826730 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     // Clear existing data
     await queryRunner.query(`TRUNCATE TABLE template CASCADE`);
