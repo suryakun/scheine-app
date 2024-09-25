@@ -10,7 +10,7 @@ export class SeedScheineTypes1686000000000 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     // Clear existing data
     await queryRunner.query(`TRUNCATE TABLE template CASCADE`);
-    await queryRunner.query(`TRUNCATE TABLE attribute_definitions CASCADE`);
+    await queryRunner.query(`TRUNCATE TABLE attribute_definition CASCADE`);
     await queryRunner.query(`TRUNCATE TABLE scheine_type CASCADE`);
 
     // Insert ScheinTypes
@@ -21,7 +21,7 @@ export class SeedScheineTypes1686000000000 implements MigrationInterface {
 
     // Insert AttributeDefinitions
     await queryRunner.query(`
-      INSERT INTO attribute_definitions (label, type, "scheineTypeId", key)
+      INSERT INTO attribute_definition (label, type, "scheineTypeId", key)
         VALUES
         ('Name, Vorname des Versicherten', 'text', (SELECT id FROM scheine_type WHERE name = 'Musstersammlung'), 'name'),
         ('geb. am', 'text', (SELECT id FROM scheine_type WHERE name = 'Musstersammlung'), 'birthday'),
@@ -59,7 +59,7 @@ export class SeedScheineTypes1686000000000 implements MigrationInterface {
   public async down(queryRunner: QueryRunner): Promise<void> {
     // Remove all seeded data
     await queryRunner.query(`TRUNCATE TABLE template CASCADE`);
-    await queryRunner.query(`TRUNCATE TABLE attribute_definitions CASCADE`);
+    await queryRunner.query(`TRUNCATE TABLE attribute_definition CASCADE`);
     await queryRunner.query(`TRUNCATE TABLE scheine_type CASCADE`);
   }
 }

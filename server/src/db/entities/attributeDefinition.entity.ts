@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Index, Relation } fr
 import { ScheineType } from './scheineType.entity';
 import { BaseEntity } from './base.entity';
 
-@Entity('attribute_definitions')
+@Entity('attribute_definition')
 @Index(['scheineType', 'key'], { unique: true })
 export class AttributeDefinition extends BaseEntity {
   @PrimaryGeneratedColumn()
